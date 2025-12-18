@@ -1,7 +1,10 @@
+import 'package:app_navegacion_estado/data/fake_products.dart';
 import 'package:app_navegacion_estado/state/cartViewModel.dart';
+import 'package:app_navegacion_estado/widgets/responsive_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:ui_components/product_card.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -10,36 +13,54 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final cart = context.watch<CartViewModel>();
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.indigo,
-        title: Text(
-          "Home",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        actions: [
-          IconButton(
-            icon: Stack(
-              children: [
-                const Icon(Icons.shopping_cart),
-                if (cart.count > 0)
-                  Positioned(
-                    right: 0,
-                    child: CircleAvatar(
-                      radius: 8,
-                      child: Text(
-                        cart.count.toString(),
-                        style: const TextStyle(fontSize: 10),
+    return ResponsiveScaffold(
+      currentIndex: 0,
+      onTab: (value) {
+        if (value == 0) context.goNamed("home");
+        if (value == 1) context.goNamed("cart");
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.indigo,
+          title: Text(
+            "Home",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          actions: [
+            IconButton(
+              icon: Stack(
+                children: [
+                  const Icon(Icons.shopping_cart, color: Colors.white),
+                  if (cart.count > 0)
+                    Positioned(
+                      right: 0,
+                      child: CircleAvatar(
+                        radius: 8,
+                        child: Text(
+                          cart.count.toString(),
+                          style: const TextStyle(fontSize: 10),
+                        ),
                       ),
                     ),
-                  ),
-              ],
+                ],
+              ),
+              onPressed: () => context.goNamed("cart"),
             ),
-            onPressed: () => context.goNamed("cart"),
-          ),
-        ],
+          ],
+        ),
+        body: ListView.builder(
+          itemCount: products.length,
+          itemBuilder: (context, i) {
+            final producto = products[i];
+            return ProductCard(
+              id: producto.id,
+              name: producto.nombre,
+              precio: producto.precio,
+              onAdd: () => cart.addProduct(producto),
+            );
+          },
+        ),
       ),
-      body: Center(child: Text("Pantalla home")),
     );
   }
 }
