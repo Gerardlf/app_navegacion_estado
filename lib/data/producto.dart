@@ -2,6 +2,7 @@ class Producto {
   final String id;
   final String nombre;
   final double precio;
+  final String descripcion;
 
-  const Producto(this.id, this.nombre, this.precio);
+  Producto(this.id, this.nombre, this.precio, this.descripcion);
 }

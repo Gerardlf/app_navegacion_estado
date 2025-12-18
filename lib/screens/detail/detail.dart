@@ -1,11 +1,17 @@
 import 'package:app_navegacion_estado/data/producto.dart';
+import 'package:app_navegacion_estado/state/cartViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class DetailProduct extends StatelessWidget {
-  const DetailProduct({super.key, required Producto producto});
+  final Producto producto;
+  const DetailProduct({super.key, required this.producto});
 
   @override
   Widget build(BuildContext context) {
+    final cart = context.watch<CartViewModel>();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.indigo,
@@ -13,8 +19,66 @@ class DetailProduct extends StatelessWidget {
           "Detail Product",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
+        leading: BackButton(
+          color: Colors.white,
+          onPressed: () => context.goNamed("home"),
+        ),
       ),
-      body: Center(child: Text("detalles")),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 12),
+              Text(" ${producto.id}", style: TextStyle(fontSize: 12)),
+              SizedBox(height: 12),
+              Text(
+                " ${producto.nombre}",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 12),
+              Text(
+                " ${producto.precio} €",
+                style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.indigo,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 30),
+              Text(
+                "Descripción:",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+              ),
+              SizedBox(height: 20),
+              Text(
+                producto.descripcion,
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.indigo,
+                      minimumSize: const Size.fromHeight(50),
+                    ),
+                    onPressed: () => cart.addProduct(producto),
+                    icon: Icon(Icons.add_shopping_cart, color: Colors.white),
+                    label: Text(
+                      "Añadir al carrito",
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
