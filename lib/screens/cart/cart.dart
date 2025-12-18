@@ -27,7 +27,22 @@ class CartScreen extends StatelessWidget {
           actions: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Icon(Icons.delivery_dining_sharp, color: Colors.white),
+              child: IconButton(
+                tooltip: "Vaciar Carrito",
+                onPressed: () {
+                  cart.clear();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text("Carrito vaciado"),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                },
+                icon: Icon(
+                  Icons.delete_forever,
+                  color: const Color.fromARGB(255, 250, 1, 1),
+                ),
+              ),
             ),
           ],
         ),
@@ -40,30 +55,80 @@ class CartScreen extends StatelessWidget {
                   final producto = cart.items[i];
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Card(
-                      child: ListTile(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        title: Text(
-                          "Código: ${producto.id} \nArticulo: ${producto.nombre}",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
+                    child: InkWell(
+                      onTap: () => {context.goNamed("detail", extra: producto)},
+                      child: Card(
+                        child: ListTile(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
                           ),
-                        ),
-                        subtitle: Text(
-                          "Precio: ${producto.precio}",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25,
+                          title: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Id: ${producto.id}",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    producto.iconData,
+                                    size: 20,
+                                    color: Colors.indigo,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      producto.nombre,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 16,
+                                        color: Colors.indigo,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                " ${producto.precio.toStringAsFixed(2)} €",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        trailing: ElevatedButton.icon(
-                          icon: Icon(Icons.delete),
-                          onPressed: () => cart.removeProduct(producto),
-                          label: Text("Eliminar"),
+
+                          trailing: ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.redAccent,
+                            ),
+                            icon: Icon(Icons.delete, color: Colors.white),
+                            onPressed: () {
+                              cart.removeProduct(producto);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    "${producto.nombre} eliminado del carrito",
+                                  ),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            },
+                            label: Text(
+                              "Eliminar",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -72,21 +137,21 @@ class CartScreen extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(20.0),
               child: Row(
                 children: [
                   Expanded(
                     child: ElevatedButton.icon(
                       icon: Icon(
                         Icons.shopping_bag_rounded,
-                        color: Colors.white,
+                        color: Colors.indigo,
                       ),
                       label: Text(
                         "Seguir Comprando",
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        style: TextStyle(fontSize: 18, color: Colors.indigo),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.indigo,
+                        foregroundColor: Colors.blueAccent,
                         minimumSize: const Size.fromHeight(50),
                       ),
                       onPressed: () => context.goNamed("home"),
@@ -97,11 +162,11 @@ class CartScreen extends StatelessWidget {
                     child: ElevatedButton.icon(
                       icon: Icon(Icons.payment, color: Colors.white),
                       label: Text(
-                        "Pagar ${cart.total}",
+                        "Pagar ${cart.total.toStringAsFixed(2)}",
                         style: TextStyle(fontSize: 18, color: Colors.white),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.indigo,
+                        backgroundColor: Colors.blueAccent,
                         minimumSize: const Size.fromHeight(50),
                       ),
                       onPressed: () => context.goNamed("payment"),

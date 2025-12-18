@@ -19,7 +19,7 @@ class CartViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void clear(Producto p) {
+  void clear() {
     _cartRepository.clear();
     notifyListeners();
   }

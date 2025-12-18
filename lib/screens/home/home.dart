@@ -56,9 +56,18 @@ class HomeScreen extends StatelessWidget {
               onTap: () => context.goNamed("detail", extra: producto),
               child: ProductCard(
                 id: producto.id,
+                icon: producto.iconData,
                 name: producto.nombre,
                 precio: producto.precio,
-                onAdd: () => cart.addProduct(producto),
+                onAdd: () {
+                  cart.addProduct(producto);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text("${producto.nombre} añadido al carrito"),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                },
               ),
             );
           },
