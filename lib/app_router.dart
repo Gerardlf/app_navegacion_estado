@@ -1,3 +1,4 @@
+import 'package:app_navegacion_estado/data/producto.dart';
 import 'package:app_navegacion_estado/screens/cart/cart.dart';
 import 'package:app_navegacion_estado/screens/detail/detail.dart';
 import 'package:app_navegacion_estado/screens/home/home.dart';
@@ -13,8 +14,11 @@ class AppRouter {
       ),
       GoRoute(
         path: "/detail",
-        name: "detail", //falta el producto
-        builder: (context, state) => const DetailProduct(),
+        name: "detail",
+        builder: (context, state) {
+          final producto = state.extra! as Producto;
+          return DetailProduct(producto: producto);
+        },
       ),
       GoRoute(
         path: "/cart",

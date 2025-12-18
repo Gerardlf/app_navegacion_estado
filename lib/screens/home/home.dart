@@ -52,11 +52,14 @@ class HomeScreen extends StatelessWidget {
           itemCount: products.length,
           itemBuilder: (context, i) {
             final producto = products[i];
-            return ProductCard(
-              id: producto.id,
-              name: producto.nombre,
-              precio: producto.precio,
-              onAdd: () => cart.addProduct(producto),
+            return InkWell(
+              onTap: () => context.goNamed("detail", extra: producto),
+              child: ProductCard(
+                id: producto.id,
+                name: producto.nombre,
+                precio: producto.precio,
+                onAdd: () => cart.addProduct(producto),
+              ),
             );
           },
         ),
