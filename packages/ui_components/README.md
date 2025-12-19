@@ -1,39 +1,15 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+## Que es ProductCard
+ProductCard es un componente creado para poder ser reutilizado en diferentes partes del código. Este componente devuelve una card donde podemos mostrar el id, nombre, precio, icono un producto además de un boton añadir que usa una Callback para realizar una acción (añadir un producto a traves del viewmodel).
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+## Como se ha creado
+Este componente se genera dentro de un paquete local que se ha genera con el comando: "flutter create --template=package packages/ui_components"
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+## Como importarlo
+Para importar este componente debemos hacerlo en nuestro archivo pubspec.yaml añadiendolo a las dependencias : ui_components:    path: packages/ui_components, para poder usarlo en nuestra app.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
 
-## Features
+## Usarlo
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Para usar este componente debemos importarlo donde lo querramos usar: "import 'package:ui_components/product_card.dart';", una vez importado podemos usarla creando un producto llamando a ProductCard y pasandole los parametros necesarios a mostrar en la tarjeta de ese producto, todo esto en homeScreen lo usamos con un listview.builer que usa la lista de productos fake para ir pintando cada ProductCard de la lista fake.
 
-## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
-```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.

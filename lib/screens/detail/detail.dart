@@ -80,6 +80,27 @@ class DetailProduct extends StatelessWidget {
                   ),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.blueAccent,
+                      minimumSize: const Size.fromHeight(50),
+                    ),
+                    onPressed: () => context.goNamed("cart"),
+                    icon: Icon(
+                      Icons.shopping_basket_outlined,
+                      color: Colors.blueAccent,
+                    ),
+                    label: Text(
+                      "ir al carrito",
+                      style: TextStyle(fontSize: 16, color: Colors.blueAccent),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
