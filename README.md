@@ -23,6 +23,14 @@ Se ha creado dentro de la carpeta widgets, un widget personalizado llamado respo
 
 Usamos el paquete ui_components donde tenemos nuestro archivo ProductCard que es un widget personalizado y reutilizable que nos ayuda a crear una tarjeta con los detalles del producto que necesitamos mostrar (Actualmente la usamos para "pintar" la lista de productos disponibles).
 
+## Capturas de la app 
+![Home>800px](docs\capturas\HomePantalla+800.png)
+![Cart>800px](docs\capturas\CartPantalla+800.png)
+![Home<800px](docs\capturas\HomeMovil.png)
+![Detail<800px](docs\capturas\DetailMovil.png)
+![Cart<800px](docs\capturas\CartMovil.png)
+
+
 
 ## Nota
 
